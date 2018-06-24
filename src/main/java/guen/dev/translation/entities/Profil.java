@@ -2,11 +2,25 @@ package guen.dev.translation.entities;
 
 import java.io.Serializable;
 
-@SuppressWarnings( "serial" )
-public class Profil implements Serializable {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@SuppressWarnings( "serial" )
+@Entity
+@Table( name = "profil" )
+public class Profil implements Serializable {
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long       idProfil;
+    @ManyToOne
+    @JoinColumn( name = "idUser" )
     private User       user;
+    @JoinColumn( name = "profil_trad", referencedColumnName = "idTraducteur" )
     private Traducteur traducteur;
 
     public Profil() {

@@ -3,14 +3,37 @@ package guen.dev.translation.entities;
 import java.io.Serializable;
 import java.util.Collection;
 
-@SuppressWarnings( "serial" )
-public class User implements Serializable {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+@SuppressWarnings( "serial" )
+@Entity
+@Table( name = "user" )
+public class User implements Serializable {
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long               idUser;
+    @NotEmpty
+    @Size( min = 2, max = 25 )
     private String             userName;
+    @NotEmpty
+    @Size( min = 6, max = 25 )
     private String             password;
     private boolean            state;
+    @ManyToMany
+    @JoinTable( name = "user_role", joinColumns = @JoinColumn( name = "userId", referencedColumnName = "idUser" ), inverseJoinColumns = @JoinColumn( name = "roleId", referencedColumnName = "idRole" ) )
     private Collection<Role>   userRoles;
+    @OneToMany( mappedBy = "user" )
     private Collection<Profil> profils;
 
     public User() {

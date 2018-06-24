@@ -1,14 +1,26 @@
 package guen.dev.translation.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @SuppressWarnings( "serial" )
+@Entity
+@Table( name = "langue" )
 public class Langue implements Serializable {
-
-    private Long                   idLangue;
-    private String                 nomLangue;
-    private Collection<Traducteur> traducteurs;
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
+    private Long   idLangue;
+    @NotEmpty
+    @Size( min = 2, max = 15 )
+    private String nomLangue;
 
     public Langue() {
         super();
@@ -34,14 +46,6 @@ public class Langue implements Serializable {
 
     public void setNomLangue( String nomLangue ) {
         this.nomLangue = nomLangue;
-    }
-
-    public Collection<Traducteur> getTraducteurs() {
-        return traducteurs;
-    }
-
-    public void setTraducteurs( Collection<Traducteur> traducteurs ) {
-        this.traducteurs = traducteurs;
     }
 
 }

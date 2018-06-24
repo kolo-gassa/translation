@@ -3,14 +3,33 @@ package guen.dev.translation.entities;
 import java.io.Serializable;
 import java.util.Collection;
 
-@SuppressWarnings( "serial" )
-public class Client implements Serializable {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+@SuppressWarnings( "serial" )
+@Entity
+@Table( name = "client" )
+public class Client implements Serializable {
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long                 idClient;
+    @NotEmpty
+    @Size( min = 2, max = 25 )
     private String               nomClient;
+    @NotEmpty
+    @Size( min = 2, max = 25 )
     private String               prenomClient;
+    @NotEmpty
     private String               emailClient;
     private String               telephoneClient;
+    @OneToMany( mappedBy = "client" )
     private Collection<Document> documents;
 
     public Client() {

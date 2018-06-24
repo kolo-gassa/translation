@@ -4,15 +4,38 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
-@SuppressWarnings( "serial" )
-public class Service implements Serializable {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+@SuppressWarnings( "serial" )
+@Entity
+@Table( name = "service" )
+public class Service implements Serializable {
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long                idService;
+    @NotEmpty
+    @Size( min = 6, max = 25 )
     private String              titreService;
+    @NotEmpty
+    @Size( min = 12, max = 120 )
     private String              descriptionService;
     private Date                date;
+    @NotEmpty
     private double              prix;
+    @ManyToOne
+    @JoinColumn( name = "idTraducteur" )
     private Traducteur          traducteur;
+    @OneToMany( mappedBy = "service" )
     private Collection<Contrat> contrats;
 
     public Service() {

@@ -1,14 +1,26 @@
 package guen.dev.translation.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @SuppressWarnings( "serial" )
+@Entity
+@Table( name = "role" )
 public class Role implements Serializable {
-
-    private Long             idRole;
-    private String           nomRole;
-    private Collection<User> users;
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
+    private Long   idRole;
+    @NotEmpty
+    @Size( min = 4, max = 15 )
+    private String nomRole;
 
     public Role() {
         super();
@@ -34,14 +46,6 @@ public class Role implements Serializable {
 
     public void setNomRole( String nomRole ) {
         this.nomRole = nomRole;
-    }
-
-    public Collection<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers( Collection<User> users ) {
-        this.users = users;
     }
 
 }

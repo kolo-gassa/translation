@@ -3,13 +3,31 @@ package guen.dev.translation.entities;
 import java.io.Serializable;
 import java.util.Collection;
 
-@SuppressWarnings( "serial" )
-public class Contrat implements Serializable {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+@SuppressWarnings( "serial" )
+@Entity
+@Table( name = "contrat" )
+public class Contrat implements Serializable {
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long                idContrat;
-    private boolean             etatContrat;
+    private boolean             etatContrat = false;
+    @OneToOne
+    @JoinColumn( name = "contrat_doc", referencedColumnName = "idDocument" )
     private Document            document;
+    @OneToMany( mappedBy = "contrat" )
     private Collection<Message> messages;
+    @ManyToOne
+    @JoinColumn( name = "idService" )
     private Service             service;
 
     public Contrat() {
