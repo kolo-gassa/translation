@@ -8,9 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -41,8 +39,8 @@ public class Traducteur implements Serializable {
     @Lob
     private byte[]              photo;
     private String              nomPhoto;
-    @ManyToMany
-    @JoinTable( name = "trad_lang", joinColumns = @JoinColumn( name = "traducteurId", referencedColumnName = "idTraducteur" ), inverseJoinColumns = @JoinColumn( name = "langueId", referencedColumnName = "idLangue" ) )
+    @OneToMany
+    @JoinColumn( name = "idTraducteur" )
     private Collection<Langue>  langues;
     @OneToMany( mappedBy = "traducteur" )
     private Collection<Service> services;

@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -30,8 +28,8 @@ public class User implements Serializable {
     @Size( min = 6, max = 25 )
     private String             password;
     private boolean            state;
-    @ManyToMany
-    @JoinTable( name = "user_role", joinColumns = @JoinColumn( name = "userId", referencedColumnName = "idUser" ), inverseJoinColumns = @JoinColumn( name = "roleId", referencedColumnName = "idRole" ) )
+    @OneToMany
+    @JoinColumn( name = "idUser" )
     private Collection<Role>   userRoles;
     @OneToMany( mappedBy = "user" )
     private Collection<Profil> profils;
