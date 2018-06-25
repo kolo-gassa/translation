@@ -26,6 +26,10 @@ public class Message implements Serializable {
     @ManyToOne
     @JoinColumn( name = "idContrat" )
     private Contrat contrat;
+    @NotEmpty
+    private Long    idSource;
+    @NotEmpty
+    private Long    idDestinataire;
 
     public Message() {
         super();
@@ -59,6 +63,22 @@ public class Message implements Serializable {
 
     public void setContrat( Contrat contrat ) {
         this.contrat = contrat;
+    }
+
+    public Long getIdSource() {
+        return idSource;
+    }
+
+    public void setIdSource( Long idSource ) {
+        this.idSource = idSource;
+    }
+
+    public Long getIdDestinataire() {
+        return idDestinataire;
+    }
+
+    public void setIdDestinataire( Long idDestinataire ) {
+        this.idDestinataire = idDestinataire;
     }
 
 }
